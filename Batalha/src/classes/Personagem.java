@@ -20,6 +20,6 @@ public abstract class Personagem {
     }
     
     public void ataque() {
-        if 
+
     }
 }

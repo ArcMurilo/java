@@ -10,7 +10,5 @@ package classes;
  */
 public class Batalha {
     private Personagem player1;
-    private Personagem player2;    
-    
-    private
+    private Personagem player2;
 }

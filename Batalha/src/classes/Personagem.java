@@ -6,9 +6,9 @@ public class Personagem {
     protected String nome;
     protected int vida;
     protected int forca;
-    protected float agilidade;
-    protected float modVida;
-    protected float modForca;
+    protected double agilidade;
+    protected double modVida;
+    protected double modForca;
     private Random numRand;
     
     public Personagem() {
@@ -29,15 +29,15 @@ public class Personagem {
         return this.forca;
     }
     
-    public int getAgilidade() {
+    public double getAgilidade() {
         return this.agilidade;
     }
     
-    public void calculaVida(int modificador) {
+    public void calculaVida(double modificador) {
         this.vida = (int)((numRand.nextInt(10) + 1) * modificador);
     }
     
-    public void calculaForca(int modificador) {
+    public void calculaForca(double modificador) {
         this.forca = (int)((numRand.nextInt(10) + 1) * modificador);
     }
     

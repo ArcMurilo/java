@@ -14,6 +14,22 @@ public class Personagem {
         
     }
     
+    public String getNome() {
+        return this.nome;
+    }
+    
+    public int getVida() {
+        return this.vida;
+    }
+    
+    public int getForca() {
+        return this.forca;
+    }
+    
+    public int getAgilidade() {
+        return this.agilidade;
+    }
+    
     public void calculaVida(int modificador) {
         this.vida = ((numRand.nextInt(10) + 1) * modificador);
     }

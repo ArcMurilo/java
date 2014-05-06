@@ -6,7 +6,7 @@ public class Personagem {
     protected String nome;
     protected int vida;
     protected int forca;
-    protected int distAtaque;
+    protected int agilidade;
     protected int posicao;
     private Random numRand;
     
@@ -33,5 +33,9 @@ public class Personagem {
         }
         
         return this.forca;
+    }
+    
+    public void sofrerDano(int dano) {
+        this.vida -= dano;
     }
 }

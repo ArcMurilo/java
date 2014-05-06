@@ -6,8 +6,9 @@ public class Personagem {
     protected String nome;
     protected int vida;
     protected int forca;
-    protected int agilidade;
-    protected int posicao;
+    protected float agilidade;
+    protected float modVida;
+    protected float modForca;
     private Random numRand;
     
     public Personagem() {

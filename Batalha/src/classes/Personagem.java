@@ -15,6 +15,8 @@ public class Personagem {
         
     }
     
+    //TODO: implementar nos construtores o nome do personagem.
+    
     public String getNome() {
         return this.nome;
     }
@@ -32,11 +34,11 @@ public class Personagem {
     }
     
     public void calculaVida(int modificador) {
-        this.vida = ((numRand.nextInt(10) + 1) * modificador);
+        this.vida = (int)((numRand.nextInt(10) + 1) * modificador);
     }
     
     public void calculaForca(int modificador) {
-        this.forca = ((numRand.nextInt(10) + 1) * modificador);
+        this.forca = (int)((numRand.nextInt(10) + 1) * modificador);
     }
     
     public int ataque() {

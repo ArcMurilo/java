@@ -45,13 +45,13 @@ public class Personagem {
         int atq = numRand.nextInt(6) + 1;
         
         if (atq == 1) {
-            return ((int) (this.forca * 0.5));
+            return ((int) (this.forca * this.agilidade * 0.5));
         }
         if (atq == 6) {
-            return ((int) (this.forca * 1.5));
+            return ((int) (this.forca * this.agilidade * 1.5));
         }
         
-        return this.forca;
+        return (int) (this.forca * this.agilidade);
     }
     
     public void sofrerDano(int dano) {

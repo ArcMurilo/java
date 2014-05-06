@@ -1,10 +1,9 @@
 package classes;
 
-import java.util.Random;
-
 public class Arqueiro extends Personagem{
 
-    public Arqueiro() {
+    public Arqueiro(String nome) {
+        this.nome = nome;
         modVida = 4;
         modForca = 1.8;
         this.calculaVida(this.modVida);

@@ -2,7 +2,8 @@ package classes;
 
 public class Mago extends Personagem {
 
-    public Mago() {
+    public Mago(String nome) {
+        this.nome = nome;
         modVida = 3;
         modForca = 3;
         this.calculaVida(this.modVida);

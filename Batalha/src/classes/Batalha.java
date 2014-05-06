@@ -1,14 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package classes;
 
 import java.util.Random;
-/**
- *
- * @author Murilo
- */
+
 public class Batalha {
     private Personagem player1;
     private Personagem player2;
@@ -33,5 +26,20 @@ public class Batalha {
         return false;
     }
     
-    
+    public boolean luta() {
+        int atqPlayer1, atqPlayer2;
+        atqPlayer1 = player1.ataque();
+        atqPlayer2 = player2.ataque();
+        
+        if (atqPlayer1 > atqPlayer2) {
+            player2.sofrerDano(atqPlayer1);
+            return true;
+        }
+        else if (atqPlayer2 > atqPlayer1) {
+            player1.sofrerDano(atqPlayer2);
+            return true;
+        }
+        
+        return false;
+    }
 }

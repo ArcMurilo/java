@@ -7,6 +7,6 @@ public class Mago extends Personagem {
     public Mago() {
         this.calculaVida(this.modVida);
         this.calculaForca(this.modForca);
-        this.distAtaque = 3;
+        this.agilidade = 1.2;
     }
 }

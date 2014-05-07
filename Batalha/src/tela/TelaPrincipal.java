@@ -10,6 +10,32 @@ import classes.Batalha;
 public class TelaPrincipal extends javax.swing.JFrame {
     private Personagem player1, player2;
     
+    private void batalha() {
+        //TODO: verificar qual esta selecionado e instanciar;
+        player1 = new Personagem(tfNomePlayer1.getText());
+        player2 = new Personagem(tfNomePlayer1.getText());
+        
+        Batalha objBatalha = new Batalha(player1, player2);
+        
+        while (!objBatalha.fimBatalha()) {
+            int quemSofreDano;
+            
+            quemSofreDano = objBatalha.luta()
+            
+            if (quemSofreDano == 1) {
+                // TODO: img de dano no player 1;
+            };
+            else if (quemSofreDano == 2) {
+                // TODO: img de dano no player 2;
+            }
+            else {
+                // TODO: img de miss nos dois;    
+            }
+            
+            atualizarTela(); //TODO: função para atualizar tela
+        }
+    }
+    
     public TelaPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);

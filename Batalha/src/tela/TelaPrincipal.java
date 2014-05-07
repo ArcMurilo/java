@@ -1,10 +1,15 @@
 package tela;
 
-public class TelaPrincipal extends javax.swing.JFrame {
+import classes.Personagem;
+import classes.Arqueiro;
+import classes.Mago;
+import classes.Guerreiro;
+import classes.Batalha;
+        
 
-    /**
-     * Creates new form TelaPrincipal
-     */
+public class TelaPrincipal extends javax.swing.JFrame {
+    private Personagem player1, player2;
+    
     public TelaPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -31,7 +36,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         rbgClassesPlayer1 = new javax.swing.ButtonGroup();
         rbgClassesPlayer2 = new javax.swing.ButtonGroup();
         pnImgMapa = new componentes.UJPanelImagem();
-        jLabel1 = new javax.swing.JLabel();
+        imgPlayer1 = new javax.swing.JLabel();
+        imgPlayer2 = new javax.swing.JLabel();
         pnPlayer1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         tfNomePlayer1 = new javax.swing.JTextField();
@@ -41,6 +47,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lbVidaPlayer1 = new javax.swing.JLabel();
         lbForcaPlayer1 = new javax.swing.JLabel();
         lbAgilidadePlayer1 = new javax.swing.JLabel();
+        lbImgClassePlayer1 = new javax.swing.JLabel();
         pnPlayer2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         tfNomePlayer2 = new javax.swing.JTextField();
@@ -50,28 +57,34 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lbVidaPlayer2 = new javax.swing.JLabel();
         lbForcaPlayer2 = new javax.swing.JLabel();
         lbAgilidadePlayer2 = new javax.swing.JLabel();
+        lbImgClassePlayer2 = new javax.swing.JLabel();
+        btnSair = new javax.swing.JButton();
+        btnIniciar = new javax.swing.JButton();
+        btnIniciarBatalha2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         pnImgMapa.setImagem(new java.io.File("D:\\repositorio\\java\\Batalha\\src\\imagens\\map.jpg"));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/archer.png"))); // NOI18N
-
         javax.swing.GroupLayout pnImgMapaLayout = new javax.swing.GroupLayout(pnImgMapa);
         pnImgMapa.setLayout(pnImgMapaLayout);
         pnImgMapaLayout.setHorizontalGroup(
             pnImgMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnImgMapaLayout.createSequentialGroup()
-                .addContainerGap(507, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(23, 23, 23))
+            .addGroup(pnImgMapaLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(imgPlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(imgPlayer2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52))
         );
         pnImgMapaLayout.setVerticalGroup(
             pnImgMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnImgMapaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnImgMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(imgPlayer1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(imgPlayer2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pnPlayer1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)), "Player 1"));
@@ -85,6 +98,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         rbMagoPlayer1.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         rbMagoPlayer1.setText("Mago");
+        rbMagoPlayer1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rbMagoPlayer1MouseClicked(evt);
+            }
+        });
 
         rbGuerreiroPlayer1.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         rbGuerreiroPlayer1.setText("Guerreiro");
@@ -109,10 +127,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnPlayer1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfNomePlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnPlayer1Layout.createSequentialGroup()
                         .addGroup(pnPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(rbGuerreiroPlayer1)
                             .addComponent(rbMagoPlayer1)
@@ -121,16 +135,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addGroup(pnPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbVidaPlayer1)
                             .addComponent(lbForcaPlayer1)
-                            .addComponent(lbAgilidadePlayer1))))
-                .addContainerGap(97, Short.MAX_VALUE))
+                            .addComponent(lbAgilidadePlayer1))
+                        .addContainerGap(147, Short.MAX_VALUE))
+                    .addGroup(pnPlayer1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfNomePlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbImgClassePlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24))))
         );
         pnPlayer1Layout.setVerticalGroup(
             pnPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnPlayer1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(tfNomePlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(pnPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(tfNomePlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbImgClassePlayer1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnPlayer1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnPlayer1Layout.createSequentialGroup()
@@ -148,7 +171,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        pnPlayer2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)), "Player 1"));
+        pnPlayer2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(0, 0, 0)), "Player 2"));
         pnPlayer2.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         pnPlayer2.setPreferredSize(new java.awt.Dimension(300, 150));
 
@@ -183,10 +206,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnPlayer2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfNomePlayer2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnPlayer2Layout.createSequentialGroup()
                         .addGroup(pnPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(rbGuerreiroPlayer2)
                             .addComponent(rbMagoPlayer2)
@@ -195,16 +214,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addGroup(pnPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbVidaPlayer2)
                             .addComponent(lbForcaPlayer2)
-                            .addComponent(lbAgilidadePlayer2))))
-                .addContainerGap(97, Short.MAX_VALUE))
+                            .addComponent(lbAgilidadePlayer2))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnPlayer2Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfNomePlayer2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbImgClassePlayer2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))))
         );
         pnPlayer2Layout.setVerticalGroup(
             pnPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnPlayer2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(tfNomePlayer2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnPlayer2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pnPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(tfNomePlayer2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(lbImgClassePlayer2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnPlayer2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnPlayer2Layout.createSequentialGroup()
@@ -222,6 +251,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
+        btnSair.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        btnSair.setText("Sair");
+
+        btnIniciar.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        btnIniciar.setText("Lutar!!!");
+
+        btnIniciarBatalha2.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
+        btnIniciarBatalha2.setText("Nova Batalha");
+        btnIniciarBatalha2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarBatalha2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -231,26 +274,63 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnImgMapa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(pnPlayer1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                            .addComponent(pnPlayer2, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnPlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(pnPlayer2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(btnSair, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnIniciar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnIniciarBatalha2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnPlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnIniciarBatalha2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnPlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnPlayer2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pnImgMapa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnImgMapa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        pnPlayer2.getAccessibleContext().setAccessibleName("Player 2");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIniciarBatalha2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarBatalha2ActionPerformed
+        tfNomePlayer1.setText(null);
+        tfNomePlayer2.setText(null);
+        lbImgClassePlayer1.setVisible(false);
+        lbImgClassePlayer2.setVisible(false);
+        lbAgilidadePlayer1.setText("Agilidade:");
+        lbAgilidadePlayer2.setText("Agilidade:");
+        lbForcaPlayer1.setText("Força:");
+        lbForcaPlayer2.setText("Força");
+        lbVidaPlayer1.setText("Vida:");
+        lbVidaPlayer2.setText("Vida:");
+        imgPlayer1.setIcon(null);
+        
+        rbgClassesPlayer1.clearSelection();
+        rbgClassesPlayer2.clearSelection();
+        
+        player1 = null;
+        player2 = null;        
+    }//GEN-LAST:event_btnIniciarBatalha2ActionPerformed
+
+    private void rbMagoPlayer1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbMagoPlayer1MouseClicked
+        imgPlayer1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/mage-left.png")));
+    }//GEN-LAST:event_rbMagoPlayer1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -288,13 +368,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnIniciar;
+    private javax.swing.JButton btnIniciarBatalha2;
+    private javax.swing.JButton btnSair;
+    private javax.swing.JLabel imgPlayer1;
+    private javax.swing.JLabel imgPlayer2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lbAgilidadePlayer1;
     private javax.swing.JLabel lbAgilidadePlayer2;
     private javax.swing.JLabel lbForcaPlayer1;
     private javax.swing.JLabel lbForcaPlayer2;
+    private javax.swing.JLabel lbImgClassePlayer1;
+    private javax.swing.JLabel lbImgClassePlayer2;
     private javax.swing.JLabel lbVidaPlayer1;
     private javax.swing.JLabel lbVidaPlayer2;
     private componentes.UJPanelImagem pnImgMapa;

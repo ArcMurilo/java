@@ -26,20 +26,20 @@ public class Batalha {
         return false;
     }
     
-    public boolean luta() {
+    public int luta() {
         int atqPlayer1, atqPlayer2;
         atqPlayer1 = player1.ataque();
         atqPlayer2 = player2.ataque();
         
         if (atqPlayer1 > atqPlayer2) {
             player2.sofrerDano(atqPlayer1);
-            return true;
+            return 2;
         }
         else if (atqPlayer2 > atqPlayer1) {
             player1.sofrerDano(atqPlayer2);
-            return true;
+            return 1;
         }
         
-        return false;
+        return 0;
     }
 }

@@ -12,8 +12,20 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     private void batalha() {
         //TODO: verificar qual esta selecionado e instanciar;
-        player1 = new Personagem(tfNomePlayer1.getText());
-        player2 = new Personagem(tfNomePlayer1.getText());
+        
+        if (rbGuerreiroPlayer1.getChecked())
+           player1 = new Guerreiro(tfNomePlayer1.getText());
+        else if (rbMagoPlayer1.getChecked())
+           player1 = new Mago(tfNomePlayer1.getText());
+        else if (rbArqueiroPlayer1.getChecked())
+           player1 = new Arqueiro(tfNomePlayer1.getText());
+        
+        if (rbGuerreiroPlayer2.getChecked())
+           player2 = new Guerreiro(tfNomePlayer2.getText());
+        else if (rbMagoPlayer2.getChecked())
+           player2 = new Mago(tfNomePlayer2.getText());
+        else if (rbArqueiroPlayer2.getChecked())
+           player2 = new Arqueiro(tfNomePlayer2.getText());
         
         Batalha objBatalha = new Batalha(player1, player2);
         
@@ -32,8 +44,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 // TODO: img de miss nos dois;    
             }
             
-            atualizarTela(); //TODO: função para atualizar tela
+            atualizarTela();
         }
+        
+        
+        for (int i = 1; i <= 50; i++) {
+           imgPlayer1.Visible = false;
+           sleep(i * 20);
+           imgPlayer1.Visible = true;
+        }
+        
+        imgPlayer1.Visible = false;
+    }
+    
+    private void atualizarTela() {
+            lbVidaPlayer1.setText(String.valueOf(player1.getVida));
+            lbVidaPlayer2.setText(String.valueOf(player2.getVida));
+            //TODO: setar img dano para visible false;
     }
     
     public TelaPrincipal() {

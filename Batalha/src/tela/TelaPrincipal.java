@@ -9,7 +9,7 @@ import classes.Batalha;
 
 public class TelaPrincipal extends javax.swing.JFrame {
     private Personagem player1, player2;
-    
+    /*
     private void batalha() {
         //TODO: verificar qual esta selecionado e instanciar;
         
@@ -62,7 +62,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             lbVidaPlayer2.setText(String.valueOf(player2.getVida));
             //TODO: setar img dano para visible false;
     }
-    
+    */
     public TelaPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);

@@ -286,9 +286,6 @@
           <Dimension value="[300, 150]"/>
         </Property>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Player 2"/>
-      </AccessibilityProperties>
 
       <Layout>
         <DimensionLayout dim="0">

@@ -1,7 +1,6 @@
 package classes;
 
 public class Arqueiro extends Personagem{
-
     public Arqueiro(String nome) {
         this.nome = nome;
         modVida = 4;
@@ -11,4 +10,3 @@ public class Arqueiro extends Personagem{
         this.agilidade = 1.5;
     }
 }
-

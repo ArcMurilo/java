@@ -5,7 +5,6 @@ public abstract class Carro {
     private String modelo;
     private String ano;
     private double valor;
-    private String pathImagem;
 
     public String getModelo() {
         return modelo;
@@ -30,18 +29,8 @@ public abstract class Carro {
     public void setValor(double valor) {
         this.valor = valor;
     }
-
-    public String getPathImagem() {
-        return pathImagem;
-    }
-
-    public void setPathImagem(String pathImagem) {
-        this.pathImagem = pathImagem;
-    }
     
     public double gerarComissao() {
         return valor;
     }
-    
-    
 }

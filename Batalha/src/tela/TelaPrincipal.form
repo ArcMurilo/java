@@ -86,9 +86,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                  <Component id="imgPlayer1" min="-2" pref="63" max="-2" attributes="0"/>
+                  <Component id="imgPlayer1" min="-2" pref="90" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="imgPlayer2" min="-2" pref="63" max="-2" attributes="0"/>
+                  <Component id="imgPlayer2" min="-2" pref="90" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -221,7 +221,7 @@
             <Property name="text" type="java.lang.String" value="Mago"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="rbMagoPlayer1MouseClicked"/>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="rbMagoPlayer1ItemStateChanged"/>
           </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="rbGuerreiroPlayer1">
@@ -231,6 +231,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Guerreiro"/>
           </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="rbGuerreiroPlayer1ItemStateChanged"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="rbArqueiroPlayer1">
           <Properties>
@@ -239,6 +242,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Arqueiro"/>
           </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="rbArqueiroPlayer1ItemStateChanged"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbVidaPlayer1">
           <Properties>
@@ -377,6 +383,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Mago"/>
           </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="rbMagoPlayer2ItemStateChanged"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="rbGuerreiroPlayer2">
           <Properties>
@@ -385,6 +394,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Guerreiro"/>
           </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="rbGuerreiroPlayer2ItemStateChanged"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="rbArqueiroPlayer2">
           <Properties>
@@ -393,6 +405,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Arqueiro"/>
           </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="rbArqueiroPlayer2ItemStateChanged"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbVidaPlayer2">
           <Properties>
@@ -437,6 +452,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Lutar!!!"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnIniciarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnIniciarBatalha2">
       <Properties>

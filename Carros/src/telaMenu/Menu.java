@@ -3,17 +3,22 @@ package telaMenu;
 import classes.Carro;
 import classes.Chevrolet;
 import classes.Lotus;
+import classes.Vendedor;
 import classes.Volvo;
 import java.awt.Color;
+import java.net.URL;
+import javax.swing.JOptionPane;
 
 public class Menu extends javax.swing.JFrame {
     
     private Carro objCarro;
+    private Vendedor objVendedor = new Vendedor();
     
     public Menu() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Nigro's Car");
+        imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/chevrolet.jpg")));
     }
 
     /**
@@ -28,13 +33,12 @@ public class Menu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        tModelo = new javax.swing.JTextField();
         tAno = new javax.swing.JTextField();
         tValor = new javax.swing.JTextField();
         cbMarca = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        imgLogo = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         tComissao = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -42,6 +46,7 @@ public class Menu extends javax.swing.JFrame {
         bComissao = new javax.swing.JButton();
         bPagar = new javax.swing.JButton();
         bLimpar = new javax.swing.JButton();
+        tModelo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,6 +57,11 @@ public class Menu extends javax.swing.JFrame {
         jLabel3.setText("Valor: R$");
 
         cbMarca.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Chevrolet", "Lotus", "Volvo" }));
+        cbMarca.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbMarcaItemStateChanged(evt);
+            }
+        });
 
         jLabel4.setText("Marca:");
 
@@ -75,6 +85,11 @@ public class Menu extends javax.swing.JFrame {
         });
 
         bPagar.setText("Pagar Comissão");
+        bPagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bPagarActionPerformed(evt);
+            }
+        });
 
         bLimpar.setText("L");
         bLimpar.addActionListener(new java.awt.event.ActionListener() {
@@ -101,28 +116,33 @@ public class Menu extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel4))
-                                .addGap(14, 14, 14)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cbMarca, 0, 96, Short.MAX_VALUE)
-                                    .addComponent(tValor)
-                                    .addComponent(tAno)
-                                    .addComponent(tModelo))
+                                .addComponent(bComissao)
+                                .addGap(18, 18, 18)
+                                .addComponent(bPagar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(bLimpar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(14, 14, 14)
+                                        .addComponent(cbMarca, 0, 144, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel1))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(tValor, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                                            .addComponent(tAno)
+                                            .addComponent(tModelo))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(bComissao)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bPagar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bLimpar)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(imgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 2, Short.MAX_VALUE)))
                 .addGap(4, 4, 4))
         );
         layout.setVerticalGroup(
@@ -130,24 +150,24 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(tModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(tModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)))
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel3)))
+                    .addComponent(imgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -183,6 +203,16 @@ public class Menu extends javax.swing.JFrame {
             return;
         }
         
+        double valor;
+        
+        try {
+            valor = Float.parseFloat(tValor.getText());
+        } catch (NumberFormatException e ) {
+            JOptionPane.showMessageDialog(rootPane, "Poxa, voce inseriu um valor invalido, tente de novo!", "Erro", 0);
+            tValor.setBackground(Color.yellow);
+            return;
+        }
+        
         if (cbMarca.getSelectedIndex() == 0) {
             objCarro = new Chevrolet();
         }
@@ -192,9 +222,7 @@ public class Menu extends javax.swing.JFrame {
         else {
             objCarro = new Volvo();
         }
-        
-        double valor = Float.parseFloat(tValor.getText());
-        
+               
         objCarro.setAno(tAno.getText());
         objCarro.setModelo(tModelo.getText());
         objCarro.setValor(valor);
@@ -203,21 +231,47 @@ public class Menu extends javax.swing.JFrame {
         
         tComissao.setText(String.format("%.2f", comissao));
         
-        double comissao_geral = Float.parseFloat(tComissaoGeral.getText());
-        comissao_geral += comissao;
+        objVendedor.calculoComissao(comissao);
         
-        tComissaoGeral.setText(String.format("%.2f",comissao_geral));
+        tComissaoGeral.setText(String.format("%.2f",objVendedor.getComissaoMensal()));
         
         tModelo.setText("");
         tAno.setText("");
-        tValor.setText("");        
+        tValor.setText("");
+        
+        objCarro = null;
     }//GEN-LAST:event_bComissaoActionPerformed
 
     private void bLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLimparActionPerformed
+        tModelo.setText("");
+        tAno.setText("");
+        tValor.setText("");
         tComissao.setText("0.00");
         tComissaoGeral.setText("0.00");
         cbMarca.setSelectedIndex(0);
+        imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/chevrolet.jpg")));
+        tAno.setBackground(Color.WHITE);
+        tValor.setBackground(Color.WHITE);
+        tModelo.setBackground(Color.WHITE);
     }//GEN-LAST:event_bLimparActionPerformed
+
+    private void cbMarcaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbMarcaItemStateChanged
+        if (cbMarca.getSelectedIndex() == 0) {
+            imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/chevrolet.jpg")));
+        }
+        else if (cbMarca.getSelectedIndex() == 1) {
+            imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/lotus.jpg")));
+        }
+        else if (cbMarca.getSelectedIndex() == 2) {
+            imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/volvo.jpg")));
+        }
+        else            
+            imgLogo.setIcon(null);        
+    }//GEN-LAST:event_cbMarcaItemStateChanged
+
+    private void bPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPagarActionPerformed
+        imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagem/dinheiro.gif")));
+    }//GEN-LAST:event_bPagarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -259,12 +313,12 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton bLimpar;
     private javax.swing.JButton bPagar;
     private javax.swing.JComboBox cbMarca;
+    private javax.swing.JLabel imgLogo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField tAno;

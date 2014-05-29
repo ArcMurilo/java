@@ -6,8 +6,8 @@ public class Guerreiro extends Personagem {
         this.nome = nome;
         modVida = 5;
         modForca = 2.5;
-        this.calculaVida(this.modVida);
-        this.calculaForca(this.modForca);
-        this.agilidade = 1;
+        vida = calculaVida(modVida);
+        forca = calculaForca(modForca);
+        agilidade = 1;
     }
 }

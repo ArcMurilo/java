@@ -1,73 +1,64 @@
 package tela;
 
-import classes.Personagem;
 import classes.Arqueiro;
-import classes.Mago;
-import classes.Guerreiro;
 import classes.Batalha;
+import classes.Guerreiro;
+import classes.Mago;
+import classes.Personagem;
+import java.awt.event.ActionEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.Timer;
         
 
 public class TelaPrincipal extends javax.swing.JFrame {
-    private Personagem player1, player2;
-    /*
-    private void batalha() {
-        //TODO: verificar qual esta selecionado e instanciar;
-        
-        if (rbGuerreiroPlayer1.getChecked())
-           player1 = new Guerreiro(tfNomePlayer1.getText());
-        else if (rbMagoPlayer1.getChecked())
-           player1 = new Mago(tfNomePlayer1.getText());
-        else if (rbArqueiroPlayer1.getChecked())
-           player1 = new Arqueiro(tfNomePlayer1.getText());
-        
-        if (rbGuerreiroPlayer2.getChecked())
-           player2 = new Guerreiro(tfNomePlayer2.getText());
-        else if (rbMagoPlayer2.getChecked())
-           player2 = new Mago(tfNomePlayer2.getText());
-        else if (rbArqueiroPlayer2.getChecked())
-           player2 = new Arqueiro(tfNomePlayer2.getText());
-        
-        Batalha objBatalha = new Batalha(player1, player2);
-        
-        while (!objBatalha.fimBatalha()) {
-            int quemSofreDano;
-            
-            quemSofreDano = objBatalha.luta()
-            
-            if (quemSofreDano == 1) {
-                // TODO: img de dano no player 1;
-            };
-            else if (quemSofreDano == 2) {
-                // TODO: img de dano no player 2;
-            }
-            else {
-                // TODO: img de miss nos dois;    
-            }
-            
-            atualizarTela();
-        }
-        
-        
-        for (int i = 1; i <= 50; i++) {
-           imgPlayer1.Visible = false;
-           sleep(i * 20);
-           imgPlayer1.Visible = true;
-        }
-        
-        imgPlayer1.Visible = false;
-    }
+    private static Personagem player1, player2;
+    private static Batalha objBatalha;
+    private javax.swing.ImageIcon img;
     
-    private void atualizarTela() {
-            lbVidaPlayer1.setText(String.valueOf(player1.getVida));
-            lbVidaPlayer2.setText(String.valueOf(player2.getVida));
-            //TODO: setar img dano para visible false;
-    }
-    */
+    //Thread de atualizacao da tela
+    private Action atualizarTela = new AbstractAction() {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (player1 != null && player2 != null) {
+                //Player1
+                lbVidaPlayer1.setText("Vida: " + String.valueOf(player1.getVida() < 0 ? 0 : player1.getVida()));
+                lbForcaPlayer1.setText("Força: " + player1.getForca());
+                lbAgilidadePlayer1.setText("Agilidade: " + player1.getAgilidade());
+                
+                //Player2
+                lbVidaPlayer2.setText("Vida: " + String.valueOf(player2.getVida() < 0 ? 0 : player2.getVida()));
+                lbForcaPlayer2.setText("Força: " + player2.getForca());
+                lbAgilidadePlayer2.setText("Agilidade: " + player2.getAgilidade());
+                
+                if (player1.getVida() <= 0) {
+                    imgPlayer1.setIcon(null);
+                } else if (player2.getVida() <= 0) {
+                    imgPlayer2.setIcon(null);
+                }
+                
+                //Se alguem ja morreu, limpa o cabaré
+                /*if (player1.getVida() <= 0 || player2.getVida() <=0) {
+                   player1 = null;
+                   player2 = null;
+                   
+                   System.gc(); //Limpa o lixo da JVM
+                   
+                }*/
+            }
+        }
+    };
+
     public TelaPrincipal() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Batalha");
-        this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/imagens/batalha.png")).getImage());
+        img = new ImageIcon(getClass().getResource("/imagens/batalha.png"));
+        this.setIconImage(img.getImage());
         rbgClassesPlayer1.add(rbMagoPlayer1);
         rbgClassesPlayer1.add(rbGuerreiroPlayer1);
         rbgClassesPlayer1.add(rbArqueiroPlayer1);
@@ -75,6 +66,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         rbgClassesPlayer2.add(rbMagoPlayer2);
         rbgClassesPlayer2.add(rbGuerreiroPlayer2);
         rbgClassesPlayer2.add(rbArqueiroPlayer2);
+        
+        //Inicia timer de atualizacao de tela
+        new Timer(500, atualizarTela).start();
     }
 
     /**
@@ -125,9 +119,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             pnImgMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnImgMapaLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addComponent(imgPlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(imgPlayer1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(imgPlayer2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(imgPlayer2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52))
         );
         pnImgMapaLayout.setVerticalGroup(
@@ -151,17 +145,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         rbMagoPlayer1.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         rbMagoPlayer1.setText("Mago");
-        rbMagoPlayer1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rbMagoPlayer1MouseClicked(evt);
+        rbMagoPlayer1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rbMagoPlayer1ItemStateChanged(evt);
             }
         });
 
         rbGuerreiroPlayer1.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         rbGuerreiroPlayer1.setText("Guerreiro");
+        rbGuerreiroPlayer1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rbGuerreiroPlayer1ItemStateChanged(evt);
+            }
+        });
 
         rbArqueiroPlayer1.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         rbArqueiroPlayer1.setText("Arqueiro");
+        rbArqueiroPlayer1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rbArqueiroPlayer1ItemStateChanged(evt);
+            }
+        });
 
         lbVidaPlayer1.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         lbVidaPlayer1.setText("Vida:");
@@ -235,12 +239,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         rbMagoPlayer2.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         rbMagoPlayer2.setText("Mago");
+        rbMagoPlayer2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rbMagoPlayer2ItemStateChanged(evt);
+            }
+        });
 
         rbGuerreiroPlayer2.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         rbGuerreiroPlayer2.setText("Guerreiro");
+        rbGuerreiroPlayer2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rbGuerreiroPlayer2ItemStateChanged(evt);
+            }
+        });
 
         rbArqueiroPlayer2.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         rbArqueiroPlayer2.setText("Arqueiro");
+        rbArqueiroPlayer2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rbArqueiroPlayer2ItemStateChanged(evt);
+            }
+        });
 
         lbVidaPlayer2.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         lbVidaPlayer2.setText("Vida:");
@@ -309,6 +328,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         btnIniciar.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
         btnIniciar.setText("Lutar!!!");
+        btnIniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarActionPerformed(evt);
+            }
+        });
 
         btnIniciarBatalha2.setFont(new java.awt.Font("Trebuchet MS", 3, 14)); // NOI18N
         btnIniciarBatalha2.setText("Nova Batalha");
@@ -356,8 +380,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        pnPlayer2.getAccessibleContext().setAccessibleName("Player 2");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -372,19 +394,67 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lbForcaPlayer2.setText("Força");
         lbVidaPlayer1.setText("Vida:");
         lbVidaPlayer2.setText("Vida:");
-        imgPlayer1.setIcon(null);
         
         rbgClassesPlayer1.clearSelection();
         rbgClassesPlayer2.clearSelection();
+        
+        imgPlayer1.setIcon(null);
+        imgPlayer2.setIcon(null);
         
         player1 = null;
         player2 = null;        
     }//GEN-LAST:event_btnIniciarBatalha2ActionPerformed
 
-    private void rbMagoPlayer1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbMagoPlayer1MouseClicked
-        imgPlayer1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/mage-left.png")));
-    }//GEN-LAST:event_rbMagoPlayer1MouseClicked
+    private void rbMagoPlayer1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbMagoPlayer1ItemStateChanged
+        img = new ImageIcon(getClass().getResource("/imagens/mage-left.png"));
+        imgPlayer1.setIcon(img);
+    }//GEN-LAST:event_rbMagoPlayer1ItemStateChanged
 
+    private void rbGuerreiroPlayer1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbGuerreiroPlayer1ItemStateChanged
+        img = new ImageIcon(getClass().getResource("/imagens/warrior-left.jpg"));
+        imgPlayer1.setIcon(img);
+    }//GEN-LAST:event_rbGuerreiroPlayer1ItemStateChanged
+
+    private void rbArqueiroPlayer1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbArqueiroPlayer1ItemStateChanged
+        img = new ImageIcon(getClass().getResource("/imagens/archer-left.jpg"));
+        imgPlayer1.setIcon(img);
+    }//GEN-LAST:event_rbArqueiroPlayer1ItemStateChanged
+
+    private void rbMagoPlayer2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbMagoPlayer2ItemStateChanged
+        img = new ImageIcon(getClass().getResource("/imagens/mage-right.png"));
+        imgPlayer2.setIcon(img);
+    }//GEN-LAST:event_rbMagoPlayer2ItemStateChanged
+
+    private void rbGuerreiroPlayer2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbGuerreiroPlayer2ItemStateChanged
+        img = new ImageIcon(getClass().getResource("/imagens/warrior-right.jpg"));
+        imgPlayer2.setIcon(img);
+    }//GEN-LAST:event_rbGuerreiroPlayer2ItemStateChanged
+
+    private void rbArqueiroPlayer2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbArqueiroPlayer2ItemStateChanged
+        img = new ImageIcon(getClass().getResource("/imagens/archer-right.jpg"));
+        imgPlayer2.setIcon(img);
+    }//GEN-LAST:event_rbArqueiroPlayer2ItemStateChanged
+
+    private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
+        if (rbGuerreiroPlayer1.isSelected())
+           player1 = new Guerreiro(tfNomePlayer1.getText());
+        else if (rbMagoPlayer1.isSelected())
+           player1 = new Mago("aaaa");
+        else if (rbArqueiroPlayer1.isSelected())
+           player1 = new Arqueiro(tfNomePlayer1.getText());
+        
+        if (rbGuerreiroPlayer2.isSelected())
+           player2 = new Guerreiro(tfNomePlayer2.getText());
+        else if (rbMagoPlayer2.isSelected())
+           player2 = new Mago("aaaa");
+        else if (rbArqueiroPlayer2.isSelected())
+           player2 = new Arqueiro(tfNomePlayer2.getText());
+        
+        objBatalha = new Batalha(player1, player2);  
+        
+        objBatalha.luta();
+    }//GEN-LAST:event_btnIniciarActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -411,7 +481,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

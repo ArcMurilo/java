@@ -9,7 +9,7 @@ public class Personagem {
     protected double agilidade;
     protected double modVida;
     protected double modForca;
-    private Random numRand;
+    private Random numRand = new Random();
     
     public Personagem() {
         
@@ -19,6 +19,10 @@ public class Personagem {
     
     public String getNome() {
         return this.nome;
+    }
+    
+    public void zerarVida() {
+        this.vida = 0;
     }
     
     public int getVida() {
@@ -33,12 +37,12 @@ public class Personagem {
         return this.agilidade;
     }
     
-    public void calculaVida(double modificador) {
-        this.vida = (int)((numRand.nextInt(10) + 1) * modificador);
+    public int calculaVida(double modificador) {
+        return (int)((numRand.nextInt(30) + 1) * modificador);
     }
     
-    public void calculaForca(double modificador) {
-        this.forca = (int)((numRand.nextInt(10) + 1) * modificador);
+    public int calculaForca(double modificador) {
+        return (int)((numRand.nextInt(10) + 1) * modificador);
     }
     
     public int ataque() {

@@ -5,9 +5,6 @@ public class TV extends Equipamento {
     private String canalAtivoNome;
     private int canalAtivoNum;
     private int tamanhoTela;
-    private int brilho;
-    private int contraste;
-    private int cor;
 
     public TV(String modelo, String marca, String voltagem, int tamanhoTela) {
         super.modelo = modelo;
@@ -16,21 +13,12 @@ public class TV extends Equipamento {
         
         super.volume = 0;
         super.ligado = false;
-        
-        this.modelo = modelo;
-        this.marca = marca;
-        this.voltagem = voltagem;
-        
-        this.volume = 0;
-        this.ligado = false;
+   
+        this.tamanhoTela = tamanhoTela;
+        this.canalAtivoNum = 0;
+        this.canalAtivoNome = this.canais[0];
     }
-    
-    public void personalizarDisplay(int brilho, int contraste, int cor) {
-        this.brilho = brilho;
-        this.contraste = contraste;
-        this.cor = cor;
-    }
-    
+            
     @Override
     public void mudarCanalMais() {
         if (this.canalAtivoNum == 4)
@@ -48,4 +36,9 @@ public class TV extends Equipamento {
             this.canalAtivoNum -= 1;
         this.canalAtivoNome = canais[this.canalAtivoNum];
     }   
+    
+    @Override
+    public String getCanal() {
+        return this.canalAtivoNome;
+    }
 }

@@ -10,6 +10,7 @@ import classes.Equipamento;
 import classes.Radio;
 import classes.TV;
 import javax.swing.JOptionPane;
+import javax.swing.border.TitledBorder;
 
 /**
  *
@@ -18,6 +19,22 @@ import javax.swing.JOptionPane;
 public class Menu extends javax.swing.JFrame {
     private Equipamento objEquipamento;
     
+    private void limparCampos() {
+        tMarca.setText(null);
+        tModelo.setText(null);
+        tTela.setText(null);
+        
+        lbCanal.setText("Canal:");
+        lbEstado.setText("Estado:");
+        lbVolume.setText("Volume:");
+        
+        bAmFm.setText("AM");
+        btIniciar.setEnabled(true);
+        bLigar.setText("Ligar");
+        
+        cbVolts.setSelectedIndex(0);
+    }
+    
     public Menu() {
         initComponents();
         rbgroup.add(rbTV);
@@ -25,8 +42,15 @@ public class Menu extends javax.swing.JFrame {
         
         rbTV.setSelected(true);
         rbRadio.setSelected(false);
+        bAmFm.setVisible(false);
         this.setLocationRelativeTo(null);
         this.setTitle("Equipamento");
+        this.setResizable(false);
+        
+        bCHMais.setEnabled(false);
+        bCHMenos.setEnabled(false);
+        bVolMais.setEnabled(false);
+        bVolMenos.setEnabled(false);        
     }
 
     /**
@@ -45,20 +69,21 @@ public class Menu extends javax.swing.JFrame {
         tMarca = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         bLigar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        bLimpar = new javax.swing.JButton();
+        bSair = new javax.swing.JButton();
+        bCHMais = new javax.swing.JButton();
+        bCHMenos = new javax.swing.JButton();
         rbRadio = new javax.swing.JRadioButton();
         cbVolts = new javax.swing.JComboBox();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        bVolMais = new javax.swing.JButton();
+        bVolMenos = new javax.swing.JButton();
         pEquipamento = new javax.swing.JPanel();
         lbEstado = new javax.swing.JLabel();
         lbCanal = new javax.swing.JLabel();
         lbVolume = new javax.swing.JLabel();
         tTela = new javax.swing.JTextField();
         lbTela = new javax.swing.JLabel();
+        bAmFm = new javax.swing.JButton();
         btIniciar = new javax.swing.JButton();
         rbTV = new javax.swing.JRadioButton();
 
@@ -77,23 +102,58 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Limpar Campos");
+        bLimpar.setText("Limpar Campos");
+        bLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bLimparActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Sair");
+        bSair.setText("Sair");
+        bSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSairActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("CH +");
+        bCHMais.setText("CH +");
+        bCHMais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCHMaisActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("CH -");
+        bCHMenos.setText("CH -");
+        bCHMenos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCHMenosActionPerformed(evt);
+            }
+        });
 
         rbRadio.setText("Radio");
+        rbRadio.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                rbRadioStateChanged(evt);
+            }
+        });
 
         cbVolts.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "110V", "220V", "Bivolt" }));
 
-        jButton6.setText("Vol +");
+        bVolMais.setText("Vol +");
+        bVolMais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bVolMaisActionPerformed(evt);
+            }
+        });
 
-        jButton7.setText("Vol -");
+        bVolMenos.setText("Vol -");
+        bVolMenos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bVolMenosActionPerformed(evt);
+            }
+        });
 
-        pEquipamento.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "TV", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14), new java.awt.Color(0, 0, 255))); // NOI18N
+        pEquipamento.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Equipamento", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14), new java.awt.Color(0, 0, 255))); // NOI18N
         pEquipamento.setFont(new java.awt.Font("Tahoma", 3, 10)); // NOI18N
 
         lbEstado.setText("Estado:");
@@ -104,6 +164,13 @@ public class Menu extends javax.swing.JFrame {
 
         lbTela.setText("Tela:");
 
+        bAmFm.setText("AM");
+        bAmFm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAmFmActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pEquipamentoLayout = new javax.swing.GroupLayout(pEquipamento);
         pEquipamento.setLayout(pEquipamentoLayout);
         pEquipamentoLayout.setHorizontalGroup(
@@ -111,18 +178,20 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(pEquipamentoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pEquipamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pEquipamentoLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pEquipamentoLayout.createSequentialGroup()
                         .addComponent(lbEstado)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 385, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 363, Short.MAX_VALUE)
                         .addComponent(lbTela)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(tTela, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pEquipamentoLayout.createSequentialGroup()
-                        .addGroup(pEquipamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbCanal)
-                            .addComponent(lbVolume))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(lbVolume)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pEquipamentoLayout.createSequentialGroup()
+                        .addComponent(lbCanal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bAmFm)))
+                .addGap(32, 32, 32))
         );
         pEquipamentoLayout.setVerticalGroup(
             pEquipamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,10 +204,12 @@ public class Menu extends javax.swing.JFrame {
                         .addComponent(tTela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lbTela)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbCanal)
+                .addGroup(pEquipamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bAmFm)
+                    .addComponent(lbCanal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbVolume)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         btIniciar.setText("Iniciar");
@@ -149,6 +220,11 @@ public class Menu extends javax.swing.JFrame {
         });
 
         rbTV.setText("TV");
+        rbTV.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rbTVItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -177,23 +253,23 @@ public class Menu extends javax.swing.JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(bLigar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jButton4)))
+                                    .addComponent(bCHMais)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jButton5)
+                                    .addComponent(bCHMenos)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton6))
+                                    .addComponent(bVolMais))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(4, 4, 4)
                                     .addComponent(tMarca)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addGap(6, 6, 6)
-                                    .addComponent(jButton7)
+                                    .addComponent(bVolMenos)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton2)
+                                    .addComponent(bLimpar)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton3))
+                                    .addComponent(bSair))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(10, 10, 10)
                                     .addComponent(jLabel3)
@@ -218,13 +294,13 @@ public class Menu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bLigar)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6)
-                    .addComponent(jButton7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                    .addComponent(bLimpar)
+                    .addComponent(bSair)
+                    .addComponent(bCHMais)
+                    .addComponent(bCHMenos)
+                    .addComponent(bVolMais)
+                    .addComponent(bVolMenos))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbRadio)
                     .addComponent(rbTV))
@@ -254,6 +330,8 @@ public class Menu extends javax.swing.JFrame {
             
         }
         lbEstado.setText("Estado: desligado");
+        
+        btIniciar.setEnabled(false);
     }//GEN-LAST:event_btIniciarActionPerformed
 
     private void bLigarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLigarActionPerformed
@@ -263,9 +341,65 @@ public class Menu extends javax.swing.JFrame {
             lbCanal.setText("Canal:");
             bLigar.setText("Ligar");
         } else {
-            lbEstado
+            lbEstado.setText("Estado: " + objEquipamento.ligar());
+            lbVolume.setText("Volume: " + objEquipamento.getVolume());
+            lbCanal.setText("Canal: " + objEquipamento.getCanal());
+            bLigar.setText("Desligar");
         }
+        
+        bCHMais.setEnabled(objEquipamento.isLigado());
+        bCHMenos.setEnabled(objEquipamento.isLigado());
+        bVolMais.setEnabled(objEquipamento.isLigado());
+        bVolMenos.setEnabled(objEquipamento.isLigado());
     }//GEN-LAST:event_bLigarActionPerformed
+
+    private void rbTVItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbTVItemStateChanged
+        lbTela.setVisible(rbTV.isSelected());
+        tTela.setVisible(rbTV.isSelected());
+    }//GEN-LAST:event_rbTVItemStateChanged
+
+    private void rbRadioStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rbRadioStateChanged
+        bAmFm.setVisible(rbRadio.isSelected());
+    }//GEN-LAST:event_rbRadioStateChanged
+
+    private void bCHMaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCHMaisActionPerformed
+        objEquipamento.mudarCanalMais();
+        lbCanal.setText("Canal: " + objEquipamento.getCanal());
+    }//GEN-LAST:event_bCHMaisActionPerformed
+
+    private void bCHMenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCHMenosActionPerformed
+        objEquipamento.mudarCanalMenos();
+        lbCanal.setText("Canal: " + objEquipamento.getCanal());
+    }//GEN-LAST:event_bCHMenosActionPerformed
+
+    private void bVolMaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolMaisActionPerformed
+        objEquipamento.aumentarVolume();
+        lbVolume.setText("Volume: " + objEquipamento.getVolume());
+    }//GEN-LAST:event_bVolMaisActionPerformed
+
+    private void bVolMenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVolMenosActionPerformed
+        objEquipamento.dimiuirVolume();
+        lbVolume.setText("Volume: " + objEquipamento.getVolume());
+    }//GEN-LAST:event_bVolMenosActionPerformed
+
+    private void bSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSairActionPerformed
+        System.exit(1);
+    }//GEN-LAST:event_bSairActionPerformed
+
+    private void bAmFmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAmFmActionPerformed
+        objEquipamento.mudarAM_FM();
+        if (objEquipamento.getAmFm() == 0) {
+            bAmFm.setText("AM");
+        } else {
+            bAmFm.setText("FM");
+        }
+        
+        lbCanal.setText("Canal: " + objEquipamento.getCanal());
+    }//GEN-LAST:event_bAmFmActionPerformed
+
+    private void bLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLimparActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_bLimparActionPerformed
 
     /**
      * @param args the command line arguments
@@ -278,7 +412,7 @@ public class Menu extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -303,15 +437,16 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bAmFm;
+    private javax.swing.JButton bCHMais;
+    private javax.swing.JButton bCHMenos;
     private javax.swing.JButton bLigar;
+    private javax.swing.JButton bLimpar;
+    private javax.swing.JButton bSair;
+    private javax.swing.JButton bVolMais;
+    private javax.swing.JButton bVolMenos;
     private javax.swing.JButton btIniciar;
     private javax.swing.JComboBox cbVolts;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

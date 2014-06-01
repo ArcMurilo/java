@@ -16,9 +16,15 @@ public class Radio extends Equipamento{
         this.AM_FM = 0;        
         this.estacaoAtivaNumFM = 0;
         this.estacaoAtivaNumAM = 0;
-        this.estacaoAtivaNome = estacoesAM[0];
+        this.estacaoAtivaNome = this.estacoesAM[0];
     }
     
+    @Override
+    public int getAmFm() {
+        return this.AM_FM;
+    }
+    
+    @Override
     public void mudarAM_FM() {
         if (AM_FM == 0) {
             this.AM_FM = 1;
@@ -30,6 +36,7 @@ public class Radio extends Equipamento{
         }            
     }
     
+    @Override
     public void mudarCanalMais() {
         if(AM_FM == 0) {
             if (estacaoAtivaNumAM == 2)
@@ -43,10 +50,11 @@ public class Radio extends Equipamento{
                 estacaoAtivaNumFM = 0;
         else
             estacaoAtivaNumFM += 1;
-        estacaoAtivaNome = estacoesAM[estacaoAtivaNumAM];
+        estacaoAtivaNome = estacoesFM[estacaoAtivaNumFM];
         }     
     }
     
+    @Override
     public void mudarCanalMenos() {
         if(AM_FM == 0) {
             if (estacaoAtivaNumAM == 0)
@@ -60,7 +68,12 @@ public class Radio extends Equipamento{
                 estacaoAtivaNumFM = 2;
         else
             estacaoAtivaNumFM -= 1;
-        estacaoAtivaNome = estacoesAM[estacaoAtivaNumAM];
+        estacaoAtivaNome = estacoesFM[estacaoAtivaNumFM];
         }     
+    }
+    
+    @Override
+    public String getCanal() {
+        return this.estacaoAtivaNome;
     }
 }

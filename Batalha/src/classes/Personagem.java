@@ -18,8 +18,4 @@ public abstract class Personagem {
     public void calculaForca() {
         
     }
-    
-    public void ataque() {
-        if 
-    }
 }

@@ -1,6 +1,7 @@
 /animais/nbproject/private/
 /Batalha/nbproject/private/
 /Batalha/build/
+<<<<<<< HEAD
 /game/nbproject/private/
 /game/build/
 /SwingTimer/nbproject/private/
@@ -14,3 +15,15 @@
 /game/UtilTimer/build/
 /game/UtilTimer/nbproject/private/
 /game/Spacecraft/build/
+=======
+/Batalha/dist/
+/Carros/nbproject/private/
+/Carros/build/
+/Carros/dist/
+/TesteThread/nbproject/private/
+/TesteThread/build/
+/Steam/nbproject/private/
+/Animal/nbproject/private/
+/EquipamentoEletronico/nbproject/private/
+/EquipamentoEletronico/build/
+>>>>>>> 0c6a766e4bd22f5a05a9531ca8cfc393f0623993

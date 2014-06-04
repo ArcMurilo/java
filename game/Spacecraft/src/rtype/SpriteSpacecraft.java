@@ -1,5 +1,6 @@
 package rtype;
 
+import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 public class SpriteSpacecraft extends JFrame{
@@ -11,10 +12,17 @@ public class SpriteSpacecraft extends JFrame{
         setLocationRelativeTo(null);
         setTitle("Spacecraft");
         setResizable(false);
-        setVisible(true);
+        //setVisible(true);
     }
     
     public static void main(String[] args) {
-        new SpriteSpacecraft();
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                JFrame s = new SpriteSpacecraft();
+                s.setVisible(true);
+            }
+        });
     }
 }

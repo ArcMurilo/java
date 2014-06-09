@@ -64,7 +64,7 @@ public class Monster {
     }
     
     public Rectangle getBounds() {
-        return new Rectangle(this.x-10, this.Y_INICIAL-10, image.getWidth(null)-10, image.getHeight(null)-10);
+        return new Rectangle(this.x+15, this.Y_INICIAL+15, image.getWidth(null)-15, image.getHeight(null)-15);
     }
             
     
@@ -103,6 +103,7 @@ public class Monster {
     
     public void dano(int att) {
         this.life -= att;
+        this.x += 20;
         if (this.life <= 0) {
             this.life = 0;
             this.alive = false;

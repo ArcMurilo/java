@@ -50,7 +50,7 @@ public class Board extends JPanel implements ActionListener{
         
         craft = new Craft();
         
-        timer = new Timer(5, this);
+        timer = new Timer(8, this);
         timer.start();
     }
     
@@ -95,7 +95,7 @@ public class Board extends JPanel implements ActionListener{
                 if(a.isVisible()) {
                     g2d.drawImage(a.getImage(), a.getX(), a.getY(), this);
                 }
-            }
+                }
             g2d.setColor(Color.WHITE);
             g2d.drawString("Aliens left: " + aliens.size(), 5, 15);
         } 
@@ -193,5 +193,4 @@ public class Board extends JPanel implements ActionListener{
             }
         }
     }
-    
 }

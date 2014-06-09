@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
 public class Alien {
-    private int x, y;
+    private int x, y, i = 0;
     private int width, height;
     private boolean visible;
     private Image image;
@@ -24,6 +24,21 @@ public class Alien {
     public void move() {
         if (x < 0) x = 400;
         x -= 1;
+        if(i <= 25) {
+            y += 1;
+            i++;
+        } 
+        else if (i <= 75) {
+            y -= 1;
+            i++;
+        }
+        else if (i <= 100) {
+            y += 1;
+            i++;
+        }
+        else i = 0;
+        
+        if (y > 300) y = 2;
     }
     
     public int getX() {

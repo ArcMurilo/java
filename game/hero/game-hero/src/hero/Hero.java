@@ -73,15 +73,17 @@ public class Hero {
     }
     
     public Rectangle getBounds() {
-        return new Rectangle(this.x-10, this.y-10, image.getWidth(null)-10, image.getHeight(null)-10);
+        return new Rectangle(this.x, this.y, (image.getWidth(null)+5), image.getHeight(null));
     }
     
     public void dano(int att) {
         this.life -= att;
+        this.x -= 20;
         if (this.life <= 0) {
             this.life = 0;
             this.alive = false;
         }
+        stopAttacking();
     }
     
     public boolean isAlive() {
@@ -90,6 +92,10 @@ public class Hero {
     
     public boolean isAttacking() {
         return this.attacking;
+    }
+    
+    public void stopAttacking() {
+        this.attacking = false;
     }
     
     public void attack() {
@@ -120,32 +126,32 @@ public class Hero {
         
         x += dx;
         y += dy;
-        
-        attacking = false;
     }
     
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         
-        if (key == KeyEvent.VK_RIGHT) {
-            dx = 5;
-        }
-        
-        if (key == KeyEvent.VK_LEFT) {
-            dx = -5;
-        }
-        
-        if (key == KeyEvent.VK_DOWN) {
-            dy = 3;
-        }
-        
-        if (key == KeyEvent.VK_UP) {
-            dy = -3;
-        }
+        System.out.println("got: " + key);
         
         if (key == KeyEvent.VK_CONTROL) {
+            System.out.println("here");
+            dx = 0;
             attack();
+        } else if (key == KeyEvent.VK_RIGHT) {
+            dx = 5;
+            stopAttacking();
+        } else if (key == KeyEvent.VK_LEFT) {
+            dx = -5;
+            stopAttacking();
+        } else if (key == KeyEvent.VK_DOWN) {
+            dy = 3;
+            stopAttacking();
+        } else if (key == KeyEvent.VK_UP) {
+            dy = -3;
+            stopAttacking();            
         }
+        
+        
     }
     
     public void keyReleased(KeyEvent e) {

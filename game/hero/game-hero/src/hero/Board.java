@@ -1,5 +1,6 @@
 package hero;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -18,6 +19,7 @@ public class Board extends JPanel implements ActionListener{
     
     private Timer timer;
     private Hero hero;
+    private boolean inGame;
     private Monster monster;
     private int B_WIDTH;
     private int B_HEIGHT;
@@ -25,7 +27,7 @@ public class Board extends JPanel implements ActionListener{
     
     public Board() {
         addKeyListener(new TAdapter());
-        hero = new Hero(3, 160);
+        hero = new Hero(3, 130);
         monster = new Monster(250, 100);
         setFocusable(true);
         setDoubleBuffered(true);
@@ -44,28 +46,39 @@ public class Board extends JPanel implements ActionListener{
         super.paint(g);
         
         Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(map, 0, 0, this);
-        if (monster.isAlive())
-            g2d.drawImage(monster.getImage(), monster.getX(), monster.getY(), this);
-        if (hero.isAlive()) 
-            g2d.drawImage(hero.getImage(), hero.getX(), hero.getY(), this);
-        
-        Font font = new Font("Calibri", 5, 14);
-        
+        Font font = new Font("Arial", Font.BOLD, 14);
         g2d.setFont(font);
+        g2d.setColor(Color.YELLOW);
+        g2d.drawImage(map, 0, 0, this.getWidth(), this.getHeight(), this);
         
-        g2d.drawString("Hero HP: " + hero.getLife(), 3, 10);
-        g2d.drawString("Monster HP " + monster.getLife(), 3, 25);
-        
+        if (inGame) {
+            //g2d.drawImage(map, 0, 0, this);            
+            g2d.drawImage(monster.getImage(), monster.getX(), monster.getY(), this);
+            g2d.drawImage(hero.getImage(), hero.getX(), hero.getY(), this);
+
+            g2d.setFont(font);
+            g2d.setColor(Color.YELLOW);
+
+            g2d.drawString("Hero HP: " + hero.getLife(), 3, 15);
+            g2d.drawString("Monster HP " + monster.getLife(), 3, 30);
+        }
+        else {
+            g2d.drawString("Leeeegaaal!!", (this.getWidth() /2)-50, this.getHeight() /2);
+        }
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        hero.move();
-        monster.move();
-        checkCollision();
+        inGame = hero.isAlive() && monster.isAlive();
+        
+        if (inGame) {
+            hero.move();
+            monster.move();
+            checkCollision();
+        }
+
         repaint();
     }
     
@@ -90,7 +103,11 @@ public class Board extends JPanel implements ActionListener{
         if (r_hero.intersects(r_monster)){
             if (hero.isAttacking()) {
                 monster.dano(25);
+                hero.stopAttacking();
             } 
+            else {
+                hero.dano(10);
+            }
         }
     }
     
